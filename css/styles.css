@@ -23,7 +23,7 @@
   --radius-sm:     6px;
   --header-h:      68px;
   --row-card-w:    220px;          /* portrait poster width */
-  --row-card-h:    330px;          /* portrait poster height (3:2 -> w*1.5) */
+  --row-card-h:    391px;          /* portrait poster height (9:16 -> w*16/9) */
 }
 
 * { box-sizing: border-box; }
@@ -332,8 +332,8 @@ h2 { font-size: 1.5rem; }
    ======================================================================== */
 .event-grid {
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 .event-card {
   background: var(--surface);
@@ -359,106 +359,146 @@ h2 { font-size: 1.5rem; }
 .event-card a.card-link:hover { color: inherit; }
 .event-card .card-image {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 9 / 16;
   background: var(--surface-2);
   overflow: hidden;
 }
 .event-card .card-image img {
+  position: absolute;
+  inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
 }
-.event-card .card-image .badge {
+
+/* ---- Branded fallback card (shown when no image or image errors) ---- */
+.card-fallback {
   position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  background: var(--primary);
-  color: #0a1628;
-  padding: 0.22rem 0.65rem;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-.event-card .card-image .date-stamp {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  background: rgba(10,22,40,0.85);
-  backdrop-filter: blur(4px);
-  color: var(--text);
-  padding: 0.4rem 0.6rem;
-  border-radius: 6px;
-  text-align: center;
-  font-size: 0.7rem;
-  line-height: 1.1;
-  border: 1px solid var(--border);
-}
-.event-card .card-image .date-stamp .day {
-  display: block;
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--primary);
-}
-.event-card .card-body {
-  padding: 1rem 1.1rem 1.2rem;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  flex: 1;
-}
-.event-card .card-title {
-  font-size: 1.1rem;
-  line-height: 1.25;
-  margin: 0;
-  color: var(--text);
-  font-weight: 700;
-}
-.event-card .card-when {
-  color: var(--secondary);
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-.event-card .card-where {
-  color: var(--text-muted);
-  font-size: 0.88rem;
-  display: flex;
   align-items: center;
-  gap: 0.3rem;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  gap: 0.6rem;
 }
-.event-card .card-desc {
-  color: var(--text-muted);
-  font-size: 0.88rem;
-  line-height: 1.4;
-  margin: 0.15rem 0 0;
+.card-fallback .fallback-icon {
+  font-size: 2.8rem;
+  line-height: 1;
+  margin-bottom: 0.15rem;
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.35));
+}
+.card-fallback .fallback-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.25;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.45);
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.event-card .card-meta {
-  margin-top: auto;
-  padding-top: 0.85rem;
-  border-top: 1px solid var(--border);
+.card-fallback .fallback-date {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.03em;
+}
+.card-fallback .fallback-brand {
+  position: absolute;
+  bottom: 0.65rem;
+  right: 0.75rem;
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---- Overlay (title/date/venue on top of real image) ---- */
+.event-card .card-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(5,12,24,0.72) 30%, rgba(5,12,24,0.97) 100%);
+  padding: 2.5rem 0.85rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+}
+.event-card .card-image .badge {
+  position: absolute;
+  top: 0.65rem;
+  left: 0.65rem;
+  background: var(--primary);
+  color: #0a1628;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  z-index: 2;
+}
+.event-card .card-image .date-stamp {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  background: rgba(10,22,40,0.85);
+  backdrop-filter: blur(4px);
+  color: var(--text);
+  padding: 0.35rem 0.55rem;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 0.65rem;
+  line-height: 1.1;
+  border: 1px solid rgba(255,255,255,0.12);
+  z-index: 2;
+}
+.event-card .card-image .date-stamp .day {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+.event-card .card-title {
+  font-size: 0.92rem;
+  line-height: 1.25;
+  margin: 0;
+  color: #fff;
+  font-weight: 700;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+}
+.event-card .card-when {
+  color: var(--secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.event-card .card-where {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.event-card .card-meta-row {
+  margin-top: 0.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 .event-card .card-price {
-  color: var(--text);
+  color: #fff;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
 }
-.event-card .card-price .free { color: var(--secondary); }
+.event-card .card-price.free-label { color: var(--secondary); }
 .event-card .card-cta {
   color: var(--primary);
   font-weight: 700;
-  font-size: 0.85rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
+  font-size: 0.75rem;
 }
 .event-card .card-actions {
   display: flex;
@@ -694,7 +734,7 @@ h2 { font-size: 1.5rem; }
 .visual-grid .poster {
   width: 100%;
   flex: initial;
-  aspect-ratio: 2/3;
+  aspect-ratio: 9/16;
   height: auto;
 }
 /* On touch devices the directions button stays visible (no hover). */
@@ -963,7 +1003,7 @@ h2 { font-size: 1.5rem; }
    Responsive
    ======================================================================== */
 @media (max-width: 900px) {
-  :root { --row-card-w: 170px; --row-card-h: 255px; --header-h: 60px; }
+  :root { --row-card-w: 170px; --row-card-h: 302px; --header-h: 60px; }
   .header-inner { padding: 0 1rem; gap: 0.75rem; }
   .site-nav { display: none; }
   .hero { padding: calc(var(--header-h) + 0.5rem) 1.25rem 2rem; min-height: 65vh; }
@@ -981,7 +1021,7 @@ h2 { font-size: 1.5rem; }
 }
 
 @media (max-width: 540px) {
-  :root { --row-card-w: 150px; --row-card-h: 225px; }
+  :root { --row-card-w: 150px; --row-card-h: 267px; }
   .filter-quickbar .chip { padding: 0.45rem 0.7rem; }
   .view-tab { padding: 0.55rem 0.85rem; font-size: 0.9rem; }
 }

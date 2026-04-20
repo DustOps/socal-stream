@@ -43,6 +43,20 @@
   const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const WEEKDAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
+  // Category gradients (start → end) and icons for fallback cards
+  const CAT_STYLE = {
+    'Festival':   { g: ['#ff7a59','#f5c451'], icon: '🎪' },
+    'Concert':    { g: ['#7c3aed','#2dd4bf'], icon: '🎵' },
+    'Sports':     { g: ['#065f46','#2dd4bf'], icon: '🏟️' },
+    'Fair':       { g: ['#d97706','#ff7a59'], icon: '🎡' },
+    'Arts':       { g: ['#be185d','#7c3aed'], icon: '🎨' },
+    'Market':     { g: ['#0f766e','#2dd4bf'], icon: '🛍️' },
+    'Convention': { g: ['#1d4ed8','#1c3252'], icon: '🎤' },
+  };
+  function catStyle(category) {
+    return CAT_STYLE[category] || { g: ['#1c3252','#0a1628'], icon: '📅' };
+  }
+
   // ---------- Helpers ----------
   function parseDate(s) {
     if (!s) return null;
@@ -168,29 +182,44 @@
     const monShort = MONTHS_SHORT[start.getMonth()];
     const priceHtml = ev.price
       ? `<span class="card-price">From <strong>$${ev.price.from}</strong></span>`
-      : `<span class="card-price"><span class="free">FREE</span></span>`;
+      : `<span class="card-price free-label">FREE</span>`;
     const dirHref = escapeHtml(directionsUrl(ev));
+    const { g, icon } = catStyle(ev.category);
+    const dateLabel = escapeHtml(formatDateRange(ev.startDate, ev.endDate, true));
+
+    // Fallback card: always rendered; hidden when a real image is present.
+    // Revealed by the img onerror handler if the remote image fails to load.
+    const fallback = `
+      <div class="card-fallback" style="background:linear-gradient(160deg,${g[0]} 0%,${g[1]} 100%)${img ? ';display:none' : ''}">
+        <div class="fallback-icon">${icon}</div>
+        <div class="fallback-title">${escapeHtml(ev.title)}</div>
+        <div class="fallback-date">${dateLabel}</div>
+        <span class="fallback-brand">SoCal Stream</span>
+      </div>`;
+
+    const imgTag = img
+      ? `<img src="${escapeHtml(img)}" alt="${escapeHtml(ev.title)}" loading="lazy"
+             onerror="this.style.display='none';this.previousElementSibling.style.display='flex'" />`
+      : '';
 
     card.innerHTML = `
       <a class="card-link" href="event.html?id=${encodeURIComponent(ev.id)}">
         <div class="card-image">
-          ${img
-            ? `<img src="${escapeHtml(img)}" alt="${escapeHtml(ev.title)}" loading="lazy" onerror="this.style.display='none'" />`
-            : ''}
+          ${fallback}
+          ${imgTag}
           <span class="badge">${escapeHtml(ev.category)}</span>
           <div class="date-stamp">
             <span class="day">${day}</span>
             <span>${escapeHtml(monShort).toUpperCase()}</span>
           </div>
-        </div>
-        <div class="card-body">
-          <span class="card-when">${escapeHtml(formatDateRange(ev.startDate, ev.endDate, true))}</span>
-          <h3 class="card-title">${escapeHtml(ev.title)}</h3>
-          <div class="card-where">📍 ${escapeHtml(ev.venue)} · ${escapeHtml(ev.city)}</div>
-          <p class="card-desc">${escapeHtml(ev.shortDescription || '')}</p>
-          <div class="card-meta">
-            ${priceHtml}
-            <span class="card-cta">View details →</span>
+          <div class="card-overlay">
+            <h3 class="card-title">${escapeHtml(ev.title)}</h3>
+            <span class="card-when">${dateLabel}</span>
+            <div class="card-where">📍 ${escapeHtml(ev.venue)} · ${escapeHtml(ev.city)}</div>
+            <div class="card-meta-row">
+              ${priceHtml}
+              <span class="card-cta">View →</span>
+            </div>
           </div>
         </div>
       </a>
@@ -234,10 +263,17 @@
     a.className = 'poster';
     a.href = `event.html?id=${encodeURIComponent(ev.id)}`;
     const img = ev.poster || ev.flyer || '';
+    const { g, icon } = catStyle(ev.category);
     a.innerHTML = `
+      <div class="card-fallback" style="background:linear-gradient(160deg,${g[0]} 0%,${g[1]} 100%)${img ? ';display:none' : ''}">
+        <div class="fallback-icon">${icon}</div>
+        <div class="fallback-title">${escapeHtml(ev.title)}</div>
+        <span class="fallback-brand">SoCal Stream</span>
+      </div>
       ${img
-        ? `<img class="poster-img" src="${escapeHtml(img)}" alt="${escapeHtml(ev.title)} poster" loading="lazy" />`
-        : `<div class="poster-fallback">🎟️</div>`}
+        ? `<img class="poster-img" src="${escapeHtml(img)}" alt="${escapeHtml(ev.title)} poster" loading="lazy"
+               onerror="this.style.display='none';this.previousElementSibling.style.display='flex'" />`
+        : ''}
       <div class="poster-overlay">
         <span class="poster-cat">${escapeHtml(ev.category)}</span>
         <div class="poster-title">${escapeHtml(ev.title)}</div>
@@ -418,14 +454,22 @@
       els.searchResults.innerHTML = `<div class="search-empty">No events match "${escapeHtml(q)}".</div>`;
       return;
     }
-    els.searchResults.innerHTML = hits.map(ev => `
-      <a class="search-card" href="event.html?id=${encodeURIComponent(ev.id)}" title="${escapeHtml(ev.title)}">
-        ${ev.poster || ev.flyer
-          ? `<img src="${escapeHtml(ev.poster || ev.flyer)}" alt="${escapeHtml(ev.title)}" loading="lazy" />`
-          : `<div class="poster-fallback">🎟️</div>`}
-        <div class="label">${escapeHtml(ev.title)}</div>
-      </a>
-    `).join('');
+    els.searchResults.innerHTML = hits.map(ev => {
+      const img = ev.poster || ev.flyer || '';
+      const { g, icon } = catStyle(ev.category);
+      const fb = `<div class="card-fallback" style="background:linear-gradient(160deg,${g[0]} 0%,${g[1]} 100%)${img ? ';display:none' : ''}">
+        <div class="fallback-icon" style="font-size:1.5rem">${icon}</div>
+      </div>`;
+      const imgTag = img
+        ? `<img src="${escapeHtml(img)}" alt="${escapeHtml(ev.title)}" loading="lazy"
+               onerror="this.style.display='none';this.previousElementSibling.style.display='flex'" />`
+        : '';
+      return `
+        <a class="search-card" href="event.html?id=${encodeURIComponent(ev.id)}" title="${escapeHtml(ev.title)}">
+          ${fb}${imgTag}
+          <div class="label">${escapeHtml(ev.title)}</div>
+        </a>`;
+    }).join('');
   }
 
   // ---------- Wire up ----------
