@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Hollywood Bowl Jazz flyer">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c1a3d"/>
+      <stop offset="100%" stop-color="#2b4b8c"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#g3)"/>
+  <g fill="#fff" opacity="0.7">
+    <circle cx="120" cy="90" r="1.5"/><circle cx="220" cy="60" r="1"/><circle cx="320" cy="110" r="2"/>
+    <circle cx="450" cy="80" r="1"/><circle cx="550" cy="130" r="1.8"/><circle cx="680" cy="70" r="1.2"/>
+    <circle cx="720" cy="150" r="1"/><circle cx="90" cy="180" r="1"/><circle cx="400" cy="40" r="1.5"/>
+  </g>
+  <path d="M100,360 Q200,290 300,360 Q400,290 500,360 Q600,290 700,360 L700,500 L100,500 Z" fill="#1a2e5c"/>
+  <path d="M150,380 Q260,320 370,380 Q480,320 590,380 Q650,340 700,380 L700,500 L150,500 Z" fill="#0f1d3d"/>
+  <text x="400" y="220" text-anchor="middle" font-family="Georgia, serif" font-size="54" font-style="italic" fill="#ffd76a">Jazz at the Bowl</text>
+  <text x="400" y="270" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#fff" letter-spacing="2">Herbie Hancock</text>
+  <text x="400" y="300" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#d9e3f9">&amp; friends · June 13, 2026</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" role="img" aria-label="Hollywood Bowl Jazz poster">
+  <defs>
+    <linearGradient id="hg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c1a3d"/>
+      <stop offset="100%" stop-color="#3a2766"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#hg)"/>
+  <g fill="#fff" opacity="0.6">
+    <circle cx="60" cy="70" r="1.5"/><circle cx="150" cy="40" r="1"/><circle cx="260" cy="90" r="2"/>
+    <circle cx="340" cy="50" r="1.3"/><circle cx="100" cy="140" r="1"/><circle cx="350" cy="170" r="1.5"/>
+    <circle cx="200" cy="30" r="1.2"/><circle cx="370" cy="110" r="1"/>
+  </g>
+  <path d="M50,420 Q130,360 210,420 Q290,360 370,420 L370,500 L50,500 Z" fill="#1a2e5c" opacity="0.9"/>
+  <path d="M80,450 Q150,400 220,450 Q290,400 370,450 L370,500 L80,500 Z" fill="#0a173a"/>
+  <path d="M130,480 Q200,440 270,480 Q330,450 370,480 L370,600 L130,600 Z" fill="#050c24"/>
+  <text x="200" y="230" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-style="italic" fill="#ffd76a">Jazz at</text>
+  <text x="200" y="270" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-style="italic" fill="#ffd76a">the Bowl</text>
+  <line x1="140" y1="290" x2="260" y2="290" stroke="#ffd76a" stroke-width="1"/>
+  <text x="200" y="320" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#fff" letter-spacing="1">HERBIE HANCOCK</text>
+  <text x="200" y="345" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#d9e3f9">&amp; FRIENDS</text>
+  <text x="200" y="380" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#ffd76a" letter-spacing="3">JUN 13 · 8PM</text>
+</svg>

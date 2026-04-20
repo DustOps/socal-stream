@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" role="img" aria-label="Coachella poster">
+  <defs>
+    <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f6b07a"/>
+      <stop offset="40%" stop-color="#e8557c"/>
+      <stop offset="100%" stop-color="#2b1640"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#cg)"/>
+  <circle cx="300" cy="170" r="80" fill="#ffd76a" opacity="0.95"/>
+  <circle cx="300" cy="170" r="110" fill="none" stroke="#ffd76a" stroke-width="1" opacity="0.3"/>
+  <polygon points="0,520 80,440 180,490 260,420 340,470 400,420 400,600 0,600" fill="#1a0d26" opacity="0.9"/>
+  <polygon points="0,560 100,500 210,540 320,480 400,520 400,600 0,600" fill="#0f0618"/>
+  <text x="200" y="320" text-anchor="middle" font-family="Georgia, serif" font-size="42" font-weight="bold" fill="#fff" letter-spacing="4">COACHELLA</text>
+  <text x="200" y="350" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#fff" letter-spacing="3">MUSIC · ARTS · DESERT</text>
+  <line x1="120" y1="370" x2="280" y2="370" stroke="#ffd76a" stroke-width="1"/>
+  <text x="200" y="395" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#ffd76a" letter-spacing="2">APR 24–26 · 2026</text>
+  <text x="200" y="415" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#fff" opacity="0.8">INDIO · CALIFORNIA</text>
+</svg>

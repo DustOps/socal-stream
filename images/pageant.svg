@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Pageant of the Masters flyer">
+  <defs>
+    <linearGradient id="g6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2d1b3d"/>
+      <stop offset="100%" stop-color="#744e2a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#g6)"/>
+  <rect x="120" y="80" width="560" height="340" fill="#d8a952" stroke="#f6cf7b" stroke-width="8"/>
+  <rect x="140" y="100" width="520" height="300" fill="#3a2818"/>
+  <text x="400" y="190" text-anchor="middle" font-family="Georgia, serif" font-size="44" fill="#f6cf7b" font-style="italic">Pageant of</text>
+  <text x="400" y="240" text-anchor="middle" font-family="Georgia, serif" font-size="44" fill="#f6cf7b" font-style="italic">the Masters</text>
+  <line x1="260" y1="275" x2="540" y2="275" stroke="#f6cf7b" stroke-width="1.5"/>
+  <text x="400" y="305" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#fff" letter-spacing="4">GOING PLACES</text>
+  <text x="400" y="350" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#e9c878">LAGUNA BEACH · SUMMER 2026</text>
+</svg>

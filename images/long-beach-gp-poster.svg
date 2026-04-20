@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" role="img" aria-label="Long Beach Grand Prix poster">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d0d0d"/>
+      <stop offset="100%" stop-color="#1e2a45"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#lg)"/>
+  <g fill="#f2f2f2">
+    <rect x="0" y="310" width="30" height="10"/>
+    <rect x="50" y="310" width="30" height="10"/>
+    <rect x="100" y="310" width="30" height="10"/>
+    <rect x="150" y="310" width="30" height="10"/>
+    <rect x="200" y="310" width="30" height="10"/>
+    <rect x="250" y="310" width="30" height="10"/>
+    <rect x="300" y="310" width="30" height="10"/>
+    <rect x="350" y="310" width="30" height="10"/>
+  </g>
+  <path d="M80,400 L170,400 L200,370 L330,370 L360,400 L370,400 L370,440 L80,440 Z" fill="#ff3131"/>
+  <circle cx="140" cy="440" r="22" fill="#111"/>
+  <circle cx="140" cy="440" r="9" fill="#bbb"/>
+  <circle cx="310" cy="440" r="22" fill="#111"/>
+  <circle cx="310" cy="440" r="9" fill="#bbb"/>
+  <text x="200" y="180" text-anchor="middle" font-family="Impact, sans-serif" font-size="40" fill="#ffd23f" letter-spacing="3">GRAND PRIX</text>
+  <text x="200" y="215" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#fff" letter-spacing="6">OF LONG BEACH</text>
+  <line x1="120" y1="235" x2="280" y2="235" stroke="#ff3131" stroke-width="2"/>
+  <text x="200" y="265" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#ffd23f" letter-spacing="2">APRIL 10–12 · 2026</text>
+  <text x="200" y="510" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#fff" opacity="0.6" letter-spacing="3">INDYCAR · IMSA · DRIFT</text>
+</svg>
