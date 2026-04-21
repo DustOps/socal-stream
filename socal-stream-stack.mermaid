@@ -1,0 +1,53 @@
+flowchart TD
+    subgraph DISCOVERY["🔍 Discovery Sources (Free APIs)"]
+        TM["Ticketmaster\nDiscovery API\n(free)"]
+        EB["Eventbrite\nper-organizer feed\n(free)"]
+        VS["Venue Scrapes\nvia Cheerio\n(free)"]
+    end
+
+    subgraph AUTOMATION["⚙️ Automation Layer"]
+        N8N["Self-hosted n8n\non VPS\n($6/mo — DigitalOcean or Hetzner)"]
+    end
+
+    subgraph ENRICHMENT["✨ Enrichment Layer"]
+        GP["Google Places API\n(free under $200/mo credit)"]
+        HAI["Claude Haiku 4.5\n(~$1/mo, cached per venue)"]
+        NOM["Nominatim\nGeocoding fallback\n(free, 1 req/sec)"]
+    end
+
+    subgraph BACKEND["🗄️ Backend / Data Store"]
+        ZC["Zoho Creator\nVenues form + Events data\n(included in Zoho One)"]
+    end
+
+    subgraph HOSTING["🌐 Hosting (Free Tier)"]
+        GH["GitHub\n(free)"]
+        NL["Netlify\n(free tier)"]
+    end
+
+    subgraph FRONTEND["💻 Frontend"]
+        SITE["SoCal Stream\nStatic Site\n(HTML/CSS/JS)"]
+    end
+
+    TM --> N8N
+    EB --> N8N
+    VS --> N8N
+
+    N8N --> GP
+    N8N --> HAI
+    N8N --> NOM
+
+    GP --> ZC
+    HAI --> ZC
+    NOM --> ZC
+
+    N8N -->|"Build hook"| NL
+    ZC -->|"JSON export"| GH
+    GH --> NL
+    NL --> SITE
+
+    style DISCOVERY fill:#1e3a5f,stroke:#4a9eff,color:#fff
+    style AUTOMATION fill:#2d1f3f,stroke:#9b59b6,color:#fff
+    style ENRICHMENT fill:#1f3d2f,stroke:#2ecc71,color:#fff
+    style BACKEND fill:#3d2a1f,stroke:#e67e22,color:#fff
+    style HOSTING fill:#1f2d3d,stroke:#3498db,color:#fff
+    style FRONTEND fill:#3d1f2a,stroke:#e74c3c,color:#fff
